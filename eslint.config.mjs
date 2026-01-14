@@ -75,6 +75,7 @@ const customConfig = [
       'import-x/prefer-default-export': 'off',
       'import-x/no-unresolved': ['error', { ignore: ['\\.svg\\?react$'] }],
       'react/button-has-type': 'off',
+      'no-param-reassign': 'off',
     },
   },
 ];
