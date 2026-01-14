@@ -1,10 +1,9 @@
 import { useForm } from 'react-hook-form';
-
-interface FormValues {
-  email: string;
-}
+import { useSignIn } from '../../../../apis/hooks/useSignIn';
 
 export function SignInForm() {
+  const { mutate: signIn } = useSignIn();
+
   const {
     register,
     handleSubmit,
@@ -16,13 +15,9 @@ export function SignInForm() {
     },
   });
 
-  const onSubmit = (values: FormValues) => {
-    console.log(values.email);
-  };
-
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(({ email }) => signIn(email))}
       className="flex flex-col gap-8 rounded-[20px] border border-[#D0D6DB] bg-[#F7F8F9] px-8 py-6"
     >
       <div className="flex flex-col gap-3">
