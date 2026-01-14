@@ -3,7 +3,7 @@ import { Header } from '../components/Header/Header';
 
 export function ProtectedLayout() {
   return (
-    <div className="bg-white">
+    <div className="flex h-full flex-col bg-white">
       <Header />
       <Outlet />
     </div>
