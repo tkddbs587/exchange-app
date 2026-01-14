@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useSignIn } from '../../../../apis/hooks/useSignIn';
+import { Button } from '../../../../components/Button/Button';
 
 export function SignInForm() {
   const { mutate: signIn } = useSignIn();
@@ -43,13 +44,9 @@ export function SignInForm() {
           </p>
         )}
       </div>
-      <button
-        disabled={isSubmitting}
-        className={`h-[77px] w-full rounded-[12px] bg-[#1B2334] text-[22px] font-bold leading-[29px] text-white ${isSubmitting && 'opacity-50'}`}
-        type="submit"
-      >
+      <Button type="submit" disabled={isSubmitting}>
         로그인 하기
-      </button>
+      </Button>
     </form>
   );
 }
