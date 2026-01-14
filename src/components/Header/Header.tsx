@@ -1,7 +1,16 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Rss from '../../assets/icons/rss.svg?react';
+import { useAuthStore } from '../../store/authStore';
 
 export function Header() {
+  const navigate = useNavigate();
+  const clearToken = useAuthStore((s) => s.clearToken);
+
+  const handleLogout = () => {
+    clearToken();
+    navigate('/sign-in', { replace: true });
+  };
+
   return (
     <header className="flex h-[75px] items-center justify-between border-b border-[#D0D6DB] px-10">
       <div className="flex h-[32px] items-center gap-2">
@@ -37,6 +46,7 @@ export function Header() {
         </nav>
         <button
           type="button"
+          onClick={handleLogout}
           className="h-[43px] rounded-[12px] bg-[#3479EB] px-3 text-center text-[20px] font-semibold leading-[27px] text-white"
         >
           Log out
