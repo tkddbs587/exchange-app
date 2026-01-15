@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useSignIn } from '../../../../apis/hooks/useSignIn';
 import { Button } from '../../../../components/Button/Button';
+import { Input } from '../../../../components/Input/Input';
 
 export function SignInForm() {
   const { mutate: signIn } = useSignIn();
@@ -25,11 +26,9 @@ export function SignInForm() {
         <span className="text-[20px] leading-[27px] text-[#646F7C]">
           이메일 주소를 입력해주세요.
         </span>
-        <input
+        <Input
           placeholder="이메일"
-          className="h-[75px] w-full rounded-[12px] border border-[#374553] px-6 text-[20px] font-semibold leading-[27px] text-[#646F7C]"
-          aria-invalid={Boolean(errors.email)}
-          {...register('email', {
+          register={register('email', {
             required: '이메일을 입력해주세요.',
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -37,7 +36,6 @@ export function SignInForm() {
             },
           })}
         />
-
         {errors.email && (
           <p className="text-[14px] leading-[18px] text-red-500">
             {errors.email.message}
