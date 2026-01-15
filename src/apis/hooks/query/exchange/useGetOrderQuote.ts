@@ -11,5 +11,8 @@ export const useGetOrderQuote = (params: RequestGetOrderQuoteParams) =>
   useQuery({
     queryKey: exchangeKeys.orderQuote(params),
     queryFn: () => requestGetOrderQuote(params),
+    refetchInterval: 60 * 1000,
+    refetchOnWindowFocus: true,
+    refetchIntervalInBackground: true,
     enabled: !!params.forexAmount,
   });
