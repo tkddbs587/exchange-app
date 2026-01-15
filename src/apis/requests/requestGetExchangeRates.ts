@@ -1,9 +1,10 @@
+import type { ExchangeCurrency } from '@/types/exchange/currency';
 import type { SuccessResponseData } from '../../types/apis/response';
 import { privateAxiosInstance } from '../client/privateAxiosInstance';
 
 export interface ExchangeRatesResponse {
   rate: number;
-  currency: 'JPY' | 'USD';
+  currency: ExchangeCurrency;
   changePercentage: number;
   exchangeRateId: number;
   applyDateTime: string;

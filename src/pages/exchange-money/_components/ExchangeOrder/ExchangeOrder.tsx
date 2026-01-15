@@ -7,6 +7,7 @@ import { Input } from '../../../../components/Input/Input';
 import type { ExchangeRatesResponse } from '../../../../apis/requests/requestGetExchangeRates';
 import { CurrencyDropdown } from './_components/CurrencyDropdown/CurrencyDropdown';
 import { TradeTypeToggle } from './_components/TradeTypeToggle/TradeTypeToggle';
+import type { ExchangeCurrency } from '@/types/exchange/currency';
 
 interface ExchangeOrderProps {
   exchangeRates: ExchangeRatesResponse[] | undefined;
@@ -15,9 +16,8 @@ interface ExchangeOrderProps {
 export function ExchangeOrder({ exchangeRates }: ExchangeOrderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isBuying, setBuying] = useState(false);
-  const [selectedCurrency, setSelectedCurrency] = useState<'JPY' | 'USD'>(
-    'USD',
-  );
+  const [selectedCurrency, setSelectedCurrency] =
+    useState<ExchangeCurrency>('USD');
 
   const { register } = useForm({
     defaultValues: {
@@ -30,7 +30,7 @@ export function ExchangeOrder({ exchangeRates }: ExchangeOrderProps) {
     (item) => item.currency === selectedCurrency,
   );
 
-  const handleClickCurrency = (currency: 'JPY' | 'USD') => {
+  const handleClickCurrency = (currency: ExchangeCurrency) => {
     setIsOpen(false);
     setSelectedCurrency(currency);
   };

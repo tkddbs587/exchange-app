@@ -2,13 +2,14 @@ import ChevronDown from '@/assets/icons/keyboard_arrow_down.svg?react';
 import ChevronUp from '@/assets/icons/keyboard_arrow_up.svg?react';
 import UsaFlag from '@/assets/icons/usa_flag.svg?react';
 import type { ExchangeRatesResponse } from '@/apis/requests/requestGetExchangeRates';
+import type { ExchangeCurrency } from '@/types/exchange/currency';
 
 interface CurrencyDropdownProps {
-  selectedCurrency: 'JPY' | 'USD';
+  selectedCurrency: ExchangeCurrency;
   exchangeRates: ExchangeRatesResponse[] | undefined;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  onClickCurrency: (currency: 'JPY' | 'USD') => void;
+  onClickCurrency: (currency: ExchangeCurrency) => void;
 }
 
 export function CurrencyDropdown({

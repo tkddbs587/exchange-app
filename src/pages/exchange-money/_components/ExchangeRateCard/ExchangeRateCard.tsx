@@ -1,8 +1,9 @@
 import ArrowUp from '../../../../assets/icons/arrow_drop_up.svg?react';
 import ArrowDown from '../../../../assets/icons/arrow_drop_down.svg?react';
+import type { ExchangeCurrency } from '@/types/exchange/currency';
 
 interface ExchangeRateCardProps {
-  currency: 'JPY' | 'USD';
+  currency: ExchangeCurrency;
   changePercentage: number;
   exchangeRate: number;
 }
