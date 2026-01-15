@@ -7,3 +7,12 @@ body,
 #root {
   height: 100%;
 }
+
+@layer utilities {
+  .scrollbar-hide {
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
