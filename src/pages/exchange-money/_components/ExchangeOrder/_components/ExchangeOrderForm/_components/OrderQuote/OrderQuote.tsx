@@ -19,6 +19,9 @@ export function OrderQuote({
   register,
   krwAmount,
 }: OrderQuoteProps) {
+  const patternByCurrency =
+    selectedCurrency === 'USD' ? /^\d+(\.\d{1,2})?$/ : /^\d+$/;
+
   return (
     <div className="mt-8 flex flex-col items-center gap-4">
       <div className="flex w-full flex-col gap-3">
@@ -28,13 +31,16 @@ export function OrderQuote({
         <div className="relative">
           <Input
             placeholder=""
-            inputMode="numeric"
-            pattern="[0-9]*"
+            inputMode={selectedCurrency === 'USD' ? 'decimal' : 'numeric'}
+            pattern={selectedCurrency === 'USD' ? '[0-9.]*' : '[0-9]*'}
             classNames={twMerge('pr-[104px] text-right')}
             register={register('amount', {
               pattern: {
-                value: /^[0-9]+$/,
-                message: '숫자만 입력해주세요.',
+                value: patternByCurrency,
+                message:
+                  selectedCurrency === 'USD'
+                    ? 'USD는 소수점 2자리까지 입력 가능합니다.'
+                    : 'JPY는 정수만 입력 가능합니다.',
               },
             })}
           />
