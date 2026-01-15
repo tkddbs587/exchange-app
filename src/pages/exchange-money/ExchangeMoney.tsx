@@ -1,6 +1,7 @@
 import { useGetExchangeRates } from '../../apis/hooks/query/exchange/useGetExchangeRates';
 import type { ExchangeRatesResponse } from '../../apis/requests/requestGetExchangeRates';
 import { ExchangeHeader } from './_components/ExchangeHeader/ExchangeHeader';
+import { ExchangeOrder } from './_components/ExchangeOrder/ExchangeOrder';
 import { ExchangeRateCard } from './_components/ExchangeRateCard/ExchangeRateCard';
 import { MyWallet } from './_components/MyWallet/MyWallet';
 
@@ -35,7 +36,7 @@ export function ExchangeMoney() {
           <MyWallet />
         </div>
 
-        <div className="flex-1" />
+        <ExchangeOrder exchangeRates={exchangeRates?.data} />
       </div>
     </div>
   );
