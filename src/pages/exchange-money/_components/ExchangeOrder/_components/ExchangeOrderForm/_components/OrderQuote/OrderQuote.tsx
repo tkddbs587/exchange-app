@@ -3,41 +3,22 @@ import { Input } from '@/components/Input/Input';
 import type { ExchangeCurrency } from '@/types/exchange/currency';
 import clsx from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { useForm } from 'react-hook-form';
-import { useGetOrderQuote } from '@/apis/hooks/query/exchange/useGetOrderQuote';
-import { useEffect, useState } from 'react';
+import { type UseFormRegister } from 'react-hook-form';
+import type { OrderFormValues } from '../../ExchangeOrderForm';
 
 interface OrderQuoteProps {
   isBuying: boolean;
   selectedCurrency: ExchangeCurrency;
+  register: UseFormRegister<OrderFormValues>;
+  krwAmount: number;
 }
 
-export function OrderQuote({ isBuying, selectedCurrency }: OrderQuoteProps) {
-  const [debouncedAmount, setDebouncedAmount] = useState(0);
-
-  const { register, watch } = useForm({
-    defaultValues: {
-      amount: 0,
-    },
-    mode: 'onChange',
-  });
-
-  const amount = watch('amount');
-
-  const { data: orderQuote } = useGetOrderQuote({
-    fromCurrency: isBuying ? 'KRW' : selectedCurrency,
-    toCurrency: isBuying ? selectedCurrency : 'KRW',
-    forexAmount: debouncedAmount,
-  });
-
-  useEffect(() => {
-    const id = setTimeout(() => {
-      setDebouncedAmount(amount);
-    }, 500);
-
-    return () => clearTimeout(id);
-  }, [amount]);
-
+export function OrderQuote({
+  isBuying,
+  selectedCurrency,
+  register,
+  krwAmount,
+}: OrderQuoteProps) {
   return (
     <div className="mt-8 flex flex-col items-center gap-4">
       <div className="flex w-full flex-col gap-3">
@@ -76,7 +57,7 @@ export function OrderQuote({ isBuying, selectedCurrency }: OrderQuoteProps) {
 
         <div className="flex h-[75px] w-full items-center justify-end gap-[10px] rounded-[12px] border border-[#ACB4BB] bg-[#F1F2F4] px-6 text-[20px] font-semibold leading-[27px]">
           <span className="text-[20px] font-semibold leading-[27px] text-[#646F7C]">
-            {orderQuote?.data?.krwAmount}
+            {krwAmount}
           </span>
           <span
             className={clsx(

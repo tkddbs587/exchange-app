@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { ExchangeCurrency } from '@/types/exchange/currency';
 import type { ExchangeRatesResponse } from '@/apis/requests/requestGetExchangeRates';
 import { CurrencyDropdown } from './_components/CurrencyDropdown/CurrencyDropdown';
 import { TradeTypeToggle } from './_components/TradeTypeToggle/TradeTypeToggle';
-import { OrderQuote } from './_components/OrderQuote/OrderQuote';
+import { ExchangeOrderForm } from './_components/ExchangeOrderForm/ExchangeOrderForm';
 
 interface ExchangeOrderProps {
   exchangeRates: ExchangeRatesResponse[] | undefined;
@@ -15,8 +15,9 @@ export function ExchangeOrder({ exchangeRates }: ExchangeOrderProps) {
   const [selectedCurrency, setSelectedCurrency] =
     useState<ExchangeCurrency>('USD');
 
-  const selectedRate = exchangeRates?.find(
-    (item) => item.currency === selectedCurrency,
+  const selectedRate = useMemo(
+    () => exchangeRates?.find((item) => item.currency === selectedCurrency),
+    [exchangeRates, selectedCurrency],
   );
 
   const handleClickCurrency = (currency: ExchangeCurrency) => {
@@ -35,25 +36,11 @@ export function ExchangeOrder({ exchangeRates }: ExchangeOrderProps) {
       />
 
       <TradeTypeToggle isBuying={isBuying} setBuying={setBuying} />
-
-      <OrderQuote isBuying={isBuying} selectedCurrency={selectedCurrency} />
-
-      <div className="mt-8 flex flex-col gap-8">
-        <div className="border-t border-[#C5C8CE]" />
-
-        <div className="flex justify-between">
-          <span className="text-[20px] font-medium leading-[27px] text-[#646F7C]">
-            적용 환율
-          </span>
-          <span className="text-[20px] font-semibold leading-[27px] text-[#646F7C]">
-            1 {selectedCurrency} = {selectedRate?.rate} 원
-          </span>
-        </div>
-
-        <button className="rounded-[12px] bg-[#1B2334] py-6 text-[22px] font-bold leading-[29px] text-white">
-          환전하기
-        </button>
-      </div>
+      <ExchangeOrderForm
+        isBuying={isBuying}
+        selectedCurrency={selectedCurrency}
+        rate={selectedRate?.rate ?? 0}
+      />
     </div>
   );
 }
