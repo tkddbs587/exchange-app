@@ -1,6 +1,6 @@
-import ArrowUp from '../../../../assets/icons/arrow_drop_up.svg?react';
-import ArrowDown from '../../../../assets/icons/arrow_drop_down.svg?react';
 import type { ExchangeCurrency } from '@/types/exchange/currency';
+import ArrowUp from '@/assets/icons/arrow_drop_up.svg?react';
+import ArrowDown from '@/assets/icons/arrow_drop_down.svg?react';
 
 interface ExchangeRateCardProps {
   currency: ExchangeCurrency;

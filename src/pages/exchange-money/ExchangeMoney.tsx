@@ -1,8 +1,7 @@
 import { useGetExchangeRates } from '../../apis/hooks/query/exchange/useGetExchangeRates';
-import type { ExchangeRatesResponse } from '../../apis/requests/requestGetExchangeRates';
 import { ExchangeHeader } from './_components/ExchangeHeader/ExchangeHeader';
 import { ExchangeOrder } from './_components/ExchangeOrder/ExchangeOrder';
-import { ExchangeRateCard } from './_components/ExchangeRateCard/ExchangeRateCard';
+import { ExchangeRateSummary } from './_components/ExchangeRateSummary/ExchangeRateSummary';
 import { MyWallet } from './_components/MyWallet/MyWallet';
 
 export function ExchangeMoney() {
@@ -18,21 +17,7 @@ export function ExchangeMoney() {
 
       <div className="flex flex-1 gap-6">
         <div className="flex flex-col gap-6">
-          <div className="flex gap-5">
-            {exchangeRates?.data?.map((item: ExchangeRatesResponse) => {
-              const { currency, changePercentage, rate, exchangeRateId } = item;
-
-              return (
-                <ExchangeRateCard
-                  key={exchangeRateId}
-                  currency={currency}
-                  changePercentage={changePercentage}
-                  exchangeRate={rate}
-                />
-              );
-            })}
-          </div>
-
+          <ExchangeRateSummary exchangeRates={exchangeRates?.data} />
           <MyWallet />
         </div>
 
