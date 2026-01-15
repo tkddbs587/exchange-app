@@ -12,7 +12,7 @@ export function Header() {
   };
 
   return (
-    <header className="flex h-[75px] items-center justify-between border-b border-[#D0D6DB] px-10">
+    <header className="sticky top-0 z-10 flex h-[75px] min-h-[75px] w-full items-center justify-between border-b border-[#D0D6DB] bg-white px-10">
       <div className="flex h-[32px] items-center gap-2">
         <Rss className="h-[24px] w-[24px]" />
         <span className="text-[24px] font-bold leading-[32px]">
