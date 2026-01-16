@@ -19,9 +19,6 @@ export function OrderQuote({
   register,
   krwAmount,
 }: OrderQuoteProps) {
-  const patternByCurrency =
-    selectedCurrency === 'USD' ? /^\d+(\.\d{1,2})?$/ : /^\d+$/;
-
   return (
     <div className="mt-8 flex flex-col items-center gap-4">
       <div className="flex w-full flex-col gap-3">
@@ -35,12 +32,20 @@ export function OrderQuote({
             pattern={selectedCurrency === 'USD' ? '[0-9.]*' : '[0-9]*'}
             classNames={twMerge('pr-[104px] text-right')}
             register={register('amount', {
-              pattern: {
-                value: patternByCurrency,
-                message:
-                  selectedCurrency === 'USD'
-                    ? 'USD는 소수점 2자리까지 입력 가능합니다.'
-                    : 'JPY는 정수만 입력 가능합니다.',
+              valueAsNumber: true,
+              validate: (value) => {
+                if (Number.isNaN(value) || value <= 0)
+                  return '유효한 금액을 입력해주세요.';
+                if (selectedCurrency === 'JPY' && !Number.isInteger(value)) {
+                  return 'JPY는 정수만 입력 가능합니다.';
+                }
+                if (selectedCurrency === 'USD') {
+                  const str = String(value);
+                  if (str.includes('.') && str.split('.')[1]?.length > 2) {
+                    return 'USD는 소수점 2자리까지 입력 가능합니다.';
+                  }
+                }
+                return true;
               },
             })}
           />

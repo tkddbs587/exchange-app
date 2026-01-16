@@ -14,5 +14,5 @@ export const useGetOrderQuote = (params: RequestGetOrderQuoteParams) =>
     refetchInterval: 60 * 1000,
     refetchOnWindowFocus: true,
     refetchIntervalInBackground: true,
-    enabled: !!params.forexAmount,
+    enabled: params.forexAmount > 0,
   });
