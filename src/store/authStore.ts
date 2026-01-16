@@ -25,6 +25,6 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   clearToken: () => {
     localStorage.removeItem(TOKEN_KEY);
-    set({ token: null, isHydrated: false });
+    set({ token: null });
   },
 }));
