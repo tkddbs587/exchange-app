@@ -11,11 +11,20 @@ export const useSignIn = () => {
     mutationFn: requestSignIn,
     onSuccess: (data) => {
       setToken(data.data.token);
-      toast.success('로그인 성공', { position: 'top-center', autoClose: 3000 });
+      toast.success('로그인 성공', {
+        position: 'top-center',
+        autoClose: 1500,
+        pauseOnHover: false,
+        hideProgressBar: true,
+      });
     },
     onError: (error: ErrorResponseData) => {
       console.error(error);
-      toast.error(error.message, { position: 'top-center' });
+      toast.error(error.message, {
+        position: 'top-center',
+        autoClose: 3000,
+        pauseOnHover: false,
+      });
     },
   });
 };

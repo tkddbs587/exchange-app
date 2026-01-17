@@ -12,12 +12,20 @@ export const useOrderExchange = () => {
   return useMutation({
     mutationFn: requestPostOrderExchange,
     onSuccess: (data) => {
-      toast.success(data.message, { position: 'top-center', autoClose: 3000 });
+      toast.success(data.message, {
+        position: 'top-center',
+        autoClose: 2000,
+        pauseOnHover: false,
+      });
       queryClient.invalidateQueries({ queryKey: walletsKeys.myWallets() });
       queryClient.invalidateQueries({ queryKey: exchangeKeys.history() });
     },
     onError: (error: AxiosError<ErrorResponseData>) => {
-      toast.error(error.response?.data.message, { position: 'top-center' });
+      toast.error(error.response?.data.message, {
+        position: 'top-center',
+        autoClose: 3000,
+        pauseOnHover: false,
+      });
     },
   });
 };
