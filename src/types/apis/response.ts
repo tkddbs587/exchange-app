@@ -25,3 +25,11 @@ export interface ErrorResponseData<T = unknown> {
   message: string;
   data: T;
 }
+
+export interface ValidationErrorResponseData {
+  code: 'VALIDATION_ERROR';
+  message: string;
+  data: {
+    email: string;
+  };
+}
