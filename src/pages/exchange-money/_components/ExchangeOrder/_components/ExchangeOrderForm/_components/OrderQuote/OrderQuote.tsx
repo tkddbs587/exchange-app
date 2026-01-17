@@ -8,6 +8,7 @@ import type { OrderFormValues } from '../../ExchangeOrderForm';
 
 interface OrderQuoteProps {
   isBuying: boolean;
+  isLoadingOrderQuote: boolean;
   selectedCurrency: ExchangeCurrency;
   register: UseFormRegister<OrderFormValues>;
   krwAmount: number;
@@ -15,6 +16,7 @@ interface OrderQuoteProps {
 
 export function OrderQuote({
   isBuying,
+  isLoadingOrderQuote,
   selectedCurrency,
   register,
   krwAmount,
@@ -67,7 +69,12 @@ export function OrderQuote({
         </span>
 
         <div className="flex h-[75px] w-full items-center justify-end gap-[10px] rounded-[12px] border border-[#ACB4BB] bg-[#F1F2F4] px-6 text-[20px] font-semibold leading-[27px]">
-          <span className="text-[20px] font-semibold leading-[27px] text-[#646F7C]">
+          <span
+            className={clsx(
+              'text-[20px] font-semibold leading-[27px] text-[#646F7C]',
+              isLoadingOrderQuote && 'animate-pulse opacity-70',
+            )}
+          >
             {krwAmount}
           </span>
           <span

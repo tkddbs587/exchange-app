@@ -39,11 +39,12 @@ export function ExchangeOrderForm({
 
   const { mutateAsync: orderExchange } = useOrderExchange();
 
-  const { data: orderQuote } = useGetOrderQuote({
-    fromCurrency: isBuying ? 'KRW' : selectedCurrency,
-    toCurrency: isBuying ? selectedCurrency : 'KRW',
-    forexAmount: debouncedAmount,
-  });
+  const { data: orderQuote, isFetching: isLoadingOrderQuote } =
+    useGetOrderQuote({
+      fromCurrency: isBuying ? 'KRW' : selectedCurrency,
+      toCurrency: isBuying ? selectedCurrency : 'KRW',
+      forexAmount: debouncedAmount,
+    });
 
   useEffect(() => {
     const id = setTimeout(() => {
@@ -77,6 +78,7 @@ export function ExchangeOrderForm({
     <form onSubmit={handleSubmit(onSubmit)}>
       <OrderQuote
         isBuying={isBuying}
+        isLoadingOrderQuote={isLoadingOrderQuote}
         selectedCurrency={selectedCurrency}
         register={register}
         krwAmount={orderQuote?.data?.krwAmount ?? 0}

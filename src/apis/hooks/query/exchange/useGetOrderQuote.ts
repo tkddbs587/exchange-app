@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import {
   requestGetOrderQuote,
@@ -15,4 +15,5 @@ export const useGetOrderQuote = (params: RequestGetOrderQuoteParams) =>
     refetchOnWindowFocus: true,
     refetchIntervalInBackground: true,
     enabled: params.forexAmount > 0,
+    placeholderData: keepPreviousData,
   });
